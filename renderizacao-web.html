@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Como os browsers renderizam páginas web</h1>
+        <p>Esta página tem a função de explicar a renderização de páginas web.</p>
+        <nav>
+            <ul>
+                <li><a href="#main-main"></a><p>Main</p></li>
+                <li><a href="#main-aside">Aside</a></li>
+                <li><a href="#main-footer">Footer</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main-main">
+        <section>
+            <ul>
+                <li>
+                    <p>A construção do DOM (Document Object Model) é o processo pelo qual o navegador transforma o código HTML bruto (bytes) em uma estrutura interativa na memória, permitindo que scripts como o JavaScript manipulem a página. Esse processo transforma tags HTML em uma "árvore de nós" (DOM Tree)
+                    </p>
+                </li>
+            </ul>
+            <ol>
+                <li>
+                    Conversão (Bytes -> Caracteres) 
+O navegador recebe os bytes brutos do arquivo HTML da rede (ou disco) e os converte em caracteres, baseando-se na codificação definida (geralmente UTF-8)
+                </li>
+                <li>
+                    Tokenização (Caracteres -> Tokens) 
+O navegador transforma a cadeia de caracteres em tokens definidos pelo padrão HTML5 (ex: <html>, <body>, <p>, tags de fechamento, etc.). Os tokens funcionam como unidades semânticas de marcação.
+                </li>
+                <li>
+                    Lexing (Tokens -> Objetos/Nós) 
+Os tokens são convertidos em "nós" (objetos no JavaScript). Cada nó representa um elemento HTML, um atributo ou um pedaço de texto
+                </li>
+            </ol>
+        </section>
+        <section><p></p></section>
+        <section><p><article><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus explicabo, quam nam libero, quae fuga dolorum earum omnis quo magnam consequuntur, molestias expedita blanditiis in! Voluptas, error reprehenderit. Modi, magnam.</p></article></p></section>
+    </main>
+    <aside>
+        <p></p>
+    </aside>
+    <footer>
+
+    </footer>
+</body>
+</html>
