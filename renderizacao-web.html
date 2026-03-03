@@ -7,25 +7,29 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
+    <header id="main-header">
         <h1>Como os browsers renderizam páginas web</h1>
         <p>Esta página tem a função de explicar a renderização de páginas web.</p>
         <nav>
             <ul>
-                <li><a href="#main-main"></a><p>Main</p></li>
-                <li><a href="#main-aside">Aside</a></li>
+                <li><a href="#main-main"><em>Main<em></a></li>
+                <li><a href="#main-aside"><strong>Aside</strong></a></li>
                 <li><a href="#main-footer">Footer</a></li>
             </ul>
         </nav>
     </header>
     <main id="main-main">
         <section>
-            <ul>
-                <li>
-                    <p>A construção do DOM (Document Object Model) é o processo pelo qual o navegador transforma o código HTML bruto (bytes) em uma estrutura interativa na memória, permitindo que scripts como o JavaScript manipulem a página. Esse processo transforma tags HTML em uma "árvore de nós" (DOM Tree)
-                    </p>
-                </li>
-            </ul>
+                <p>
+                    <blockquote cite="https://www.cristiano.dev/blog/2024-09-26-processo-renderizacao-no-browser-cssom">
+                        O que é o <abbr title="Cascading Style Sheet Object Model">CSSOM</abbr>? 
+Assim como a <abbr title="Document Object Model">DOM</abbr>, o CSSOM é uma estrutura de dados hierárquica, mas sua função é representar o CSS de um documento web.
+
+O CSSOM é gerado pelos navegadores após o carregamento e processamento dos arquivos de estilo. Embora seja construído separadamente da DOM, ambos trabalham em conjunto para que o navegador possa montar a página com a estrutura correta (DOM) e aplicar os estilos apropriados (CSSOM).
+
+A principal função do CSSOM é fornecer ao navegador um "mapa" detalhado dos estilos que devem ser aplicados a cada elemento da página.
+                    </blockquote>
+                </p>
             <ol>
                 <li>
                     Conversão (Bytes -> Caracteres) 
@@ -33,7 +37,7 @@ O navegador recebe os bytes brutos do arquivo HTML da rede (ou disco) e os conve
                 </li>
                 <li>
                     Tokenização (Caracteres -> Tokens) 
-O navegador transforma a cadeia de caracteres em tokens definidos pelo padrão HTML5 (ex: <html>, <body>, <p>, tags de fechamento, etc.). Os tokens funcionam como unidades semânticas de marcação.
+O navegador transforma a cadeia de caracteres em tokens definidos pelo padrão HTML5 (ex: html, body, p, tags de fechamento, etc.). Os tokens funcionam como unidades semânticas de marcação.
                 </li>
                 <li>
                     Lexing (Tokens -> Objetos/Nós) 
@@ -41,14 +45,118 @@ Os tokens são convertidos em "nós" (objetos no JavaScript). Cada nó represent
                 </li>
             </ol>
         </section>
-        <section><p></p></section>
-        <section><p><article><p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus explicabo, quam nam libero, quae fuga dolorum earum omnis quo magnam consequuntur, molestias expedita blanditiis in! Voluptas, error reprehenderit. Modi, magnam.</p></article></p></section>
+        <figure>
+            <img src="DOM.png" width="500px" height="500px" alt="DOM">
+            <figcaption>Representação visual do DOM</figcaption>
+        </figure>
+        <hr>
+        <section>
+            <p>
+                <article>
+                    O CSSOM é gerado pelos navegadores após o carregamento e processamento dos arquivos de estilo. Embora seja construído separadamente da DOM, ambos trabalham em conjunto para que o navegador possa montar a página com a estrutura correta (DOM) e aplicar os estilos apropriados (CSSOM).
+                </article>
+            </p>
+        </section>
+        <section>
+            <ol>
+                <li>
+                    <div style="width:200px;">
+                        <pre>O navegador transforma o CSS numa estrutura de regras organizada, chamada CSSOM tree.</pre>
+                    </div>
+                </li>
+                <li>
+                    O navegador combina: Estrutura do DOM e Regras do CSSOM e cria a Render Tree.
+                </li>
+                <li>
+                    Reflow/Layout: Agora o navegador calcula: Tamanho, Posição, Margens, Padding e Bordas.
+                </li>
+                <li>
+                    Paint: Depois do layout, o navegador pinta: Cores, Bordas, Sombras, Texto e Imagens.
+                </li>
+                <li>
+                    Composite: o navegador junta transform, opacity, animações, camadas GPU em camadas finais para exibir na tela.
+                </li>
+            </ol>
+        </section>
+        <section>
+            <picture>
+                <source media="(width:500px)" srcset="cssom-tree.png" loading="lazy">
+                <figure>
+                    <img src="cssom-tree.png" height="500px" width="500px" alt="cssom-tree" loading="lazy">
+                    <figcaption>Representação do CSSOM</figcaption>
+                </figure>
+            </picture>
+        </section>
+        <section>
+           <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Aspecto</th>
+                <th>DOM</th>
+                <th>CSSOM</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Significado</td>
+                <td>Document Object Model</td>
+                <td>CSS Object Model</td>
+            </tr>
+            <tr>
+                <td>Origem</td>
+                <td>HTML</td>
+                <td>CSS</td>
+            </tr>
+            <tr>
+                <td>Função</td>
+                <td>Representa a estrutura do documento</td>
+                <td>Representa as regras de estilo aplicadas</td>
+            </tr>
+            <tr>
+                <td>Formato</td>
+                <td>Árvore de nós (elementos HTML)</td>
+                <td>Árvore de regras de estilo</td>
+            </tr>
+            <tr>
+                <td>Manipulação via JavaScript</td>
+                <td>document.querySelector(), createElement()</td>
+                <td>element.style, getComputedStyle()</td>
+            </tr>
+            <tr>
+                <td>Participa da Render Tree?</td>
+                <td>Sim</td>
+                <td>Sim</td>
+            </tr>
+            <tr>
+                <td>Impacto na performance</td>
+                <td>Alterações podem causar Reflow ou Repaint</td>
+                <td>Alterações podem causar Reflow ou Repaint</td>
+            </tr>
+        </tbody>
+    </table> 
+        </section>
     </main>
     <aside>
-        <p></p>
+        <ul>
+            <li>
+                <a href="https://www.w3schools.com/js/js_htmldom.asp" rel="noopener" rel="noreferrer">DOM</a>
+            </li>
+            <li>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model" rel="noopener" rel="noreferrer">CSSOM</a>
+            </li>
+        </ul>
     </aside>
-    <footer>
-
+    <footer id="main-footer">
+        <div>
+            <ul>
+            <li>Autor: Arabel</li>
+            <li>Data:<time datetime="2025-03-03 00:26">03 de Março</li>
+            <li><a href="mailto:aragandolfo@gmail.com">Enviar Email</a></li>
+        </ul>
+        </div>
+        <div>
+            <p><a href="#main-header">Voltar ao topo</a></p>
+        </div>
     </footer>
 </body>
 </html>
